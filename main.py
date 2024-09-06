@@ -1,9 +1,10 @@
 from BACK.Usuario import Usuario
 from BACK.UsuarioBanco import UsuarioBanco
+from GUI import script
 
 
 user = Usuario("jorge", "j", 12, "123")
-userbd = UsuarioBanco("usuario")
+userbd = UsuarioBanco()
 
 createTable = '''
         CREATE TABLE Usuario(
@@ -30,3 +31,5 @@ result = userbd.authenticate(us)
 print(result)
 """it.execute(f"insert into usuario({colunas}) values(%s,%s,%s,%s)",(listValores))
 db_connection.commit()"""
+
+authenticate()

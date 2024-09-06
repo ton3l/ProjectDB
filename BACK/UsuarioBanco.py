@@ -1,9 +1,9 @@
 import psycopg2
-from . import dfFunctions
+import util
 
 
 class UsuarioBanco:
-    def __init__(self, table = ""):
+    def __init__(self):
         conection = {
         'dbname': '20221214010016',
         'user': 'postgres',
@@ -13,23 +13,23 @@ class UsuarioBanco:
         }
         self.db_connection = psycopg2.connect(**conection)
         self.it = self.db_connection.cursor()
-        self.table = table
+        self.table = "usuario"
         
 
     def inserInto(self, listColunas = (), listValores = ()):
-        command = dfFunctions.inserIntoTable(listColunas, self.table)
+        command = util.inserIntoTable(listColunas, self.table)
         self.it.execute(command, listValores)
         self.db_connection.commit()
 
 
     def getUser(self, username = ""):
-        command = dfFunctions.get(username, self.table)
+        command = util.get(username, self.table)
         self.it.execute(command)
         return self.it.fetchone()
     
     def authenticate(self, user = ()):
         listColunas = ("username","senha")
-        command = dfFunctions.getAll(listColunas, self.table)
+        command = util.getAll(listColunas, self.table)
         self.it.execute(command)
         us = self.it.fetchall()
         for use in us:
