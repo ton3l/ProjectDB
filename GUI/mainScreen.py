@@ -1,5 +1,5 @@
-from script import *
-from . import script
+import tkinter
+from tkinter import ttk
 
 root = ttk.Tk()
 root.geometry("400x400")

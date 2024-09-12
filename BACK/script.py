@@ -1,6 +1,7 @@
-from tkinter import *
+from tkinter import StringVar
+import tkinter
 from tkinter import ttk
-from Back.UsuarioBanco import UsuarioBanco
+from .UsuarioBanco import UsuarioBanco
 
 def authenticate():
     usbd = UsuarioBanco()

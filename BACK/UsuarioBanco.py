@@ -1,6 +1,4 @@
 import psycopg2
-import util
-
 
 class UsuarioBanco:
     def __init__(self):
@@ -17,19 +15,28 @@ class UsuarioBanco:
         
 
     def inserInto(self, listColunas = (), listValores = ()):
-        command = util.inserIntoTable(listColunas, self.table)
+        colunas = listColunas
+        colunas = ",".join(listColunas)
+        command = f'''
+        SELECT {colunas} FROM usuario
+        '''
         self.it.execute(command, listValores)
         self.db_connection.commit()
 
 
     def getUser(self, username = ""):
-        command = util.get(username, self.table)
+        command = f'''
+            SELECT username, senha FROM usuario WHERE username='{username}'
+        '''
         self.it.execute(command)
         return self.it.fetchone()
     
     def authenticate(self, user = ()):
         listColunas = ("username","senha")
-        command = util.getAll(listColunas, self.table)
+        colunas = ",".join(listColunas)
+        command = f'''
+        SELECT {colunas} FROM usuario
+        '''
         self.it.execute(command)
         us = self.it.fetchall()
         for use in us:

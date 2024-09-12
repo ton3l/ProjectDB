@@ -1,6 +1,6 @@
 from BACK.Usuario import Usuario
 from BACK.UsuarioBanco import UsuarioBanco
-from GUI import script
+from BACK import script
 
 
 user = Usuario("jorge", "j", 12, "123")
@@ -32,4 +32,3 @@ print(result)
 """it.execute(f"insert into usuario({colunas}) values(%s,%s,%s,%s)",(listValores))
 db_connection.commit()"""
 
-authenticate()
