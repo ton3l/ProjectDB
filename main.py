@@ -1,34 +1,32 @@
+from tkinter import *
 from BACK.Usuario import Usuario
 from BACK.UsuarioBanco import UsuarioBanco
 from BACK import script
 
-
-user = Usuario("jorge", "j", 12, "123")
-userbd = UsuarioBanco()
-
-createTable = '''
-        CREATE TABLE Usuario(
-        nome varchar(50),
-        username varchar(50),
-        idade smallint,
-        senha varchar(24)
-        CONSTRAINT pk_usuario PRIMARY KEY 
-    );
-'''
+""" Tela principal da aplicação """
 
 
+root = Tk();
+root.geometry("400x400");
 
-listColunas = ("username", "senha")
-tabela = "usuario"
-us = ("a", "123")
+tittle = Label(root, text="Login");
+user = Entry(root);
+password = Entry(root);
+confirm = Button(root, text="log in");
 
+def authenticate():
+    usnm = user.get();
+    passw = password.get()
 
+    if(script.authenticate(usnm, passw)):
+        print('acesso concedido')
 
-result = userbd.authenticate(us)
+confirm.configure(command=authenticate)
 
-#result = userbd.selectAllLines(listColunas)
+tittle.grid(column=0, row=0);
+user.grid(column=0,row=1,pady=2.5,padx=2.5);
+password.grid(column=0,row=2,pady=2.5,padx=2.5);
+confirm.grid(column=0,row=3,pady=2.5,padx=2.5);
 
-print(result)
-"""it.execute(f"insert into usuario({colunas}) values(%s,%s,%s,%s)",(listValores))
-db_connection.commit()"""
+root.mainloop();
 

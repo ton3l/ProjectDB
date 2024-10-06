@@ -3,13 +3,9 @@ import tkinter
 from tkinter import ttk
 from .UsuarioBanco import UsuarioBanco
 
-def authenticate():
+def authenticate(usnm, passw):
     usbd = UsuarioBanco()
-    usnmVar = StringVar()
-    paswVar = StringVar()
-    usnm = usnmVar.get()
-    pasw = paswVar.get()
-    us = (usnm, pasw)
+    us = (usnm, passw)
     result = usbd.authenticate(us)
     return True
 

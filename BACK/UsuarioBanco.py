@@ -3,9 +3,9 @@ import psycopg2
 class UsuarioBanco:
     def __init__(self):
         conection = {
-        'dbname': '20221214010016',
+        'dbname': 'postgres',
         'user': 'postgres',
-        'password': 'pabd',
+        'password': '1234',
         'port': 5432,
         'host': 'localhost'
         }
@@ -32,14 +32,11 @@ class UsuarioBanco:
         return self.it.fetchone()
     
     def authenticate(self, user = ()):
-        listColunas = ("username","senha")
-        colunas = ",".join(listColunas)
-        command = f'''
-        SELECT {colunas} FROM usuario
-        '''
+        colunas = "username,senha"
+        command = f'SELECT {colunas} FROM usuario'
         self.it.execute(command)
-        us = self.it.fetchall()
-        for use in us:
-            if(user == use):
+        users = self.it.fetchall()
+        for us in users:
+            if(user == us):
                 return True
         return False
