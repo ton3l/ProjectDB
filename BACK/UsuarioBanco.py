@@ -14,14 +14,10 @@ class UsuarioBanco:
         self.table = "usuario"
         
 
-    def inserInto(self, listColunas = (), listValores = ()):
-        colunas = listColunas
-        colunas = ",".join(listColunas)
-        command = f'''
-        SELECT {colunas} FROM usuario
-        '''
-        self.it.execute(command, listValores)
-        self.db_connection.commit()
+    def selectAll(self):
+        command = f'SELECT * FROM usuario'
+        self.it.execute(command)
+        return self.it.fetchall()
 
 
     def getUser(self, username = ""):

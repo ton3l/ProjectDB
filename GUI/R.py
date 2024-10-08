@@ -5,4 +5,3 @@ class ReadScreen:
     def __init__(self):
         ROOT = Tk();
         ROOT.geometry("100x150");
-        ROOT.mainloop();

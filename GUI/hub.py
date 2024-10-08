@@ -16,8 +16,8 @@ class HubScreen:
         CREATEEDIT = Button(ROOT, text="Criar/Editar Cuidador");
         READ = Button(ROOT, text="Lista cuidadores");
 
-        CREATEEDIT.grid(column=0, row=0, pady=2.5, padx=2.5);
-        READ.grid(column=0, row=1, pady=2.5, padx=2.5);
+        CREATEEDIT.pack()
+        READ.pack()
 
         CREATEEDIT.configure(command=self.linkCreateScreen);
         READ.configure(command=self.linkReadScreen);
