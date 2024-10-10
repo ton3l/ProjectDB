@@ -18,8 +18,6 @@ class CUDScreen:
 
         for n,user in enumerate(users):
             text[n].insert(END, user[0])
-            text[n].pack()
+            text[n].pack(side=TOP)
             BUTTON = Button(ROOT, text="edit", height=1)
             BUTTON.pack(side=TOP)
-
-
