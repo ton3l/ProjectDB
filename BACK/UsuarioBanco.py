@@ -15,21 +15,21 @@ class UsuarioBanco:
         
 
     def selectAll(self):
-        command = f'SELECT * FROM usuario'
+        command = f'SELECT * FROM {self.table}'
         self.it.execute(command)
         return self.it.fetchall()
 
 
     def getUser(self, username = ""):
         command = f'''
-            SELECT username, senha FROM usuario WHERE username='{username}'
+            SELECT username, senha FROM {self.table} WHERE username='{username}'
         '''
         self.it.execute(command)
         return self.it.fetchone()
     
     def authenticate(self, user = ()):
         colunas = "username,senha"
-        command = f'SELECT {colunas} FROM usuario'
+        command = f'SELECT {colunas} FROM {self.table}'
         self.it.execute(command)
         users = self.it.fetchall()
         for us in users:

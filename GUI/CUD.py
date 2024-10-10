@@ -7,20 +7,19 @@ class CUDScreen:
         ROOT.geometry("200x350");
 
         SCROLL = Scrollbar(ROOT);
-        LB = Listbox(ROOT, yscrollcommand=SCROLL.set, font=('Arial', ), width=10);
-
-        SCROLL.pack(side=RIGHT, fill=Y)
-        LB.pack(side=LEFT, fill=Y)
         
-
+        SCROLL.pack(side=RIGHT, fill=Y)
 
         usbd = UsuarioBanco()
         users = usbd.selectAll()
-
+        text = []
         for user in users:
-            LB.insert(END, user[0])
+            text.append(Text(ROOT, height=1))
+
+        for n,user in enumerate(users):
+            text[n].insert(END, user[0])
+            text[n].pack()
             BUTTON = Button(ROOT, text="edit", height=1)
             BUTTON.pack(side=TOP)
 
-        SCROLL.configure(command=LB.yview)
 
