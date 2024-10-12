@@ -1,6 +1,6 @@
 import psycopg2
 
-class CuidadorBanco:
+class AmbienteBanco:
     def __init__(self):
         conection = {
             'dbname': 'postgres',
@@ -11,9 +11,9 @@ class CuidadorBanco:
         }
         self.db_connection = psycopg2.connect(**conection)
         self.it = self.db_connection.cursor()
-        self.table = 'cuidador'
+        self.table = 'ambiente'
     
     def selectAll(self):
-        command = f'SELECT * FROM {self.table}'
+        command = f"SELECT * FROM {self.table} WHERE cuidador='123456'"
         self.it.execute(command)
         return self.it.fetchall()

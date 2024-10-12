@@ -1,26 +1,22 @@
 from tkinter import *
-from .CUD import CUDScreen
-from .R import ReadScreen
+from BACK.CuidadorBanco import CuidadorBanco
 
 class HubScreen:
-    def linkCreateScreen(self):
-        CUDScreen();
-    
-    def linkReadScreen(self):
-        ReadScreen()
-
     def __init__(self):
         ROOT = Tk();
-        ROOT.geometry("100x150");
+        ROOT.geometry("200x350");
 
-        CREATEEDIT = Button(ROOT, text="Criar/Editar Cuidador");
-        READ = Button(ROOT, text="Lista cuidadores");
+        CREATE = Button(ROOT, text="Inserir Cuidador", height=1)
+        SCROLL = Scrollbar(ROOT);
+        
+        CREATE.grid(row=0, column=1)
 
-        CREATEEDIT.pack()
-        READ.pack()
+        cddr = CuidadorBanco()
+        users = cddr.selectAll()
+        text = []
 
-        CREATEEDIT.configure(command=self.linkCreateScreen);
-        READ.configure(command=self.linkReadScreen);
-
-    
-
+        for n,user in enumerate(users):
+            text.append(Label(ROOT, text=user[0]))
+            text[n].grid(row=n+1, column=0)
+            BUTTON = Button(ROOT, text="ver cuidador", height=1)
+            BUTTON.grid(row=n+1, column=2)
