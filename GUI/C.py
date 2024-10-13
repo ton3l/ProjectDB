@@ -3,16 +3,16 @@ from BACK.CuidadorBanco import CuidadorBanco
 
 class CreateScreen:
     def insertCuidador(self, bdcnct, name, id, label, refreshList):
-        values = [name, id]
+        values = [name, id]#Recebendo valores e inserindo no banco de dados, através de uma instância de Cuidador Banco(bdcnct)
         bdcnct.insertInto(values)
+
         label.configure(text="Cuidador criado")
         refreshList()
 
-        
-
     def __init__(self, refreshSuperList):
         ROOT = Tk();
-        ROOT.geometry("100x150");
+        ROOT.geometry("100x150")
+        
         cddrBd = CuidadorBanco()
 
         NAME_L = Label(ROOT, text="Nome:")

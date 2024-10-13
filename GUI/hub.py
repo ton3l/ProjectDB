@@ -2,21 +2,25 @@ from tkinter import *
 from BACK.CuidadorBanco import CuidadorBanco
 from .C import CreateScreen
 from .RUD import EditScreen
+from functools import partial
 
 class HubScreen:
     def linkCreateScreen(self, refreshList):
-        CreateScreen(refreshList)
-    def linkEditScreen(self):
-        EditScreen()
+        CreateScreen(refreshList) #Passa a função de atualizar lista por parâmetro
+    def linkEditScreen(self, crgvrId):
+        EditScreen(crgvrId)
+
     def refreshList(self, ROOT):
-        cddr = CuidadorBanco()
-        users = cddr.selectAll()
-        text = []
-        for n,user in enumerate(users):
-            text.append(Label(ROOT, text=user[0]))
-            text[n].grid(row=n+1, column=0)
-            BUTTON = Button(ROOT, text="ver cuidador", height=1, command=self.linkEditScreen)
-            BUTTON.grid(row=n+1, column=2)
+        cddrBd = CuidadorBanco()
+        crgvrs = cddrBd.selectAll()
+        texts = [] #Armazena o nome de cada cuidador
+        buttons = []
+
+        for n,crgvr in enumerate(crgvrs): #Dispõe os cuidadores encontrados na tela acompanhados de um botão para cada
+            texts.append(Label(ROOT, text=crgvr[0]))
+            texts[n].grid(row=n+1, column=0)
+            buttons.append(Button(ROOT, text="ver cuidador", height=1, command=partial(self.linkEditScreen, crgvr[1])))
+            buttons[n].grid(row=n+1, column=2)
 
 
     def __init__(self):

@@ -23,3 +23,8 @@ class CuidadorBanco:
         self.it.execute(command, values)
         self.db_connection.commit()
         return True
+    
+    def getUser(self, id = ""):
+        command = f"SELECT * FROM {self.table} WHERE id='{id}'"
+        self.it.execute(command)
+        return self.it.fetchone()
