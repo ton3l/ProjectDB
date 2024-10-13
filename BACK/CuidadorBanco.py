@@ -17,3 +17,9 @@ class CuidadorBanco:
         command = f'SELECT * FROM {self.table}'
         self.it.execute(command)
         return self.it.fetchall()
+    
+    def insertInto(self, values):
+        command = f'INSERT INTO {self.table} VALUES (%s, %s)'
+        self.it.execute(command, values)
+        self.db_connection.commit()
+        return True

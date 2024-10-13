@@ -1,7 +1,12 @@
 from tkinter import *
-from BACK.UsuarioBanco import UsuarioBanco
 
-class ReadScreen:
+class EditScreen:
     def __init__(self):
         ROOT = Tk();
         ROOT.geometry("100x150");
+
+        LABEL = Label(ROOT, bg="blue")
+
+        LABEL.pack()
+
+        LABEL.configure(text="AAAAAAAAAAAAAAAAA")
