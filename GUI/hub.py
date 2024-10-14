@@ -13,14 +13,14 @@ class HubScreen:
     def refreshList(self, ROOT):
         cddrBd = CuidadorBanco()
         crgvrs = cddrBd.selectAll()
-        texts = [] #Armazena o nome de cada cuidador
-        buttons = []
+        nameLabels = [] 
+        editButtons = []
 
         for n,crgvr in enumerate(crgvrs): #Dispõe os cuidadores encontrados na tela acompanhados de um botão para cada
-            texts.append(Label(ROOT, text=crgvr[0]))
-            texts[n].grid(row=n+1, column=0)
-            buttons.append(Button(ROOT, text="ver cuidador", height=1, command=partial(self.linkEditScreen, crgvr[1])))
-            buttons[n].grid(row=n+1, column=2)
+            nameLabels.append(Label(ROOT, text=crgvr[0]))
+            nameLabels[n].grid(row=n+1, column=0)
+            editButtons.append(Button(ROOT, text="ver cuidador", height=1, command=partial(self.linkEditScreen, crgvr[1])))
+            editButtons[n].grid(row=n+1, column=2)
 
 
     def __init__(self):

@@ -1,3 +1,12 @@
+"""
+Padronizar nomes de variáveis, classes e tabelas em inglês
+Extinguir uso de ;
+Uso de classe para inicialização da tela principal
+Configurar scrollbar na tela hub
+Fazer try catch para criar tabelas e gerenciar erros
+
+"""
+
 from tkinter import *
 from BACK import script
 from GUI.hub import HubScreen
