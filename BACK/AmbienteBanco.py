@@ -3,9 +3,9 @@ import psycopg2
 class AmbienteBanco:
     def __init__(self):
         conection = {
-            'dbname': 'postgres',
+            'dbname': '20221214010016',
             'user': 'postgres',
-            'password': '1234',
+            'password': 'pabd',
             'port': 5432,
             'host': 'localhost'
         }

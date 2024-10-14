@@ -2,22 +2,29 @@ from tkinter import *
 from BACK.CuidadorBanco import CuidadorBanco
 
 class EditScreen:
+    def updateTable(self, nValues = [], oValues = []):
+        if(nValues!=oValues):
+            
+
+
     def __init__(self, crgvrSuper):
         ROOT = Tk();
         ROOT.geometry("100x150");
 
-        crgvrBd = CuidadorBanco()
+        ZKEEPER_BD = CuidadorBanco()
+        ZKEEPER = ZKEEPER_BD.getUser(crgvrSuper)
 
-        LABEL = Text(ROOT, height=1)
-        BUTTON = Button(ROOT)
+        NAME = Text(ROOT, height=1)
+        ID = Text(ROOT, height=1)
+        CONFIRM = Button(ROOT)
 
-        LABEL.pack()
-        BUTTON.pack()
+        NAME.pack()
+        ID.pack()
+        CONFIRM.pack()
 
-        a = crgvrBd.getUser(crgvrSuper)
+        NAME.insert(END, ZKEEPER[0])
+        ID.insert(END, ZKEEPER[1])
 
-        LABEL.insert(END, a[0])
-
-        BUTTON.configure(command=lambda: print(LABEL.get("1.0", END)))
+        CONFIRM.configure(command=lambda: print(NAME.get("1.0", END)))
 
         #Algoritmo para conferir se os dados foram alterados: armazenar entradas em uma lista, fazer um for comparando com a lista retornada do postgre

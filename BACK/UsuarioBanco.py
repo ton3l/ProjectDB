@@ -3,11 +3,11 @@ import psycopg2
 class UsuarioBanco:
     def __init__(self):
         conection = {
-        'dbname': 'postgres',
-        'user': 'postgres',
-        'password': '1234',
-        'port': 5432,
-        'host': 'localhost'
+            'dbname': '20221214010016',
+            'user': 'postgres',
+            'password': 'pabd',
+            'port': 5432,
+            'host': 'localhost'
         }
         self.db_connection = psycopg2.connect(**conection)
         self.it = self.db_connection.cursor()

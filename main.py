@@ -4,6 +4,7 @@ Extinguir uso de ;
 Uso de classe para inicialização da tela principal
 Configurar scrollbar na tela hub
 Fazer try catch para criar tabelas e gerenciar erros
+trocar caregiver(crgvr) para zookeeper(zkeeper)
 
 """
 
