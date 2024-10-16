@@ -7,19 +7,19 @@ from functools import partial
 class HubScreen:
     def linkCreateScreen(self, refreshList):
         CreateScreen(refreshList) #Passa a função de atualizar lista por parâmetro
-    def linkEditScreen(self, crgvrId):
-        EditScreen(crgvrId)
+    def linkEditScreen(self, zkeeperId):
+        EditScreen(zkeeperId)
 
     def refreshList(self, ROOT):
-        cddrBd = CuidadorBanco()
-        crgvrs = cddrBd.selectAll()
+        zkeeperBd = CuidadorBanco()
+        zkeepers = zkeeperBd.selectAll()
         nameLabels = [] 
         editButtons = []
 
-        for n,crgvr in enumerate(crgvrs): #Dispõe os cuidadores encontrados na tela acompanhados de um botão para cada
-            nameLabels.append(Label(ROOT, text=crgvr[0]))
+        for n,zkeeper in enumerate(zkeepers): #Dispõe os cuidadores encontrados na tela acompanhados de um botão para cada
+            nameLabels.append(Label(ROOT, text=zkeeper[0]))
             nameLabels[n].grid(row=n+1, column=0)
-            editButtons.append(Button(ROOT, text="ver cuidador", height=1, command=partial(self.linkEditScreen, crgvr[1])))
+            editButtons.append(Button(ROOT, text="ver cuidador", height=1, command=partial(self.linkEditScreen, zkeeper[1])))
             editButtons[n].grid(row=n+1, column=2)
 
 

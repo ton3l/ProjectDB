@@ -13,7 +13,7 @@ class CreateScreen:
         ROOT = Tk();
         ROOT.geometry("100x150")
         
-        cddrBd = CuidadorBanco()
+        zkeeperBd = CuidadorBanco()
 
         NAME_L = Label(ROOT, text="Nome:")
         NAME = Entry(ROOT);
@@ -29,5 +29,5 @@ class CreateScreen:
         CONFIRM.pack()
         CONFIRM_L.pack()
 
-        CONFIRM.configure(command=lambda: self.insertCuidador(cddrBd, NAME.get(), ID.get(), CONFIRM_L, refreshSuperList))
+        CONFIRM.configure(command=lambda: self.insertCuidador(zkeeperBd, NAME.get(), ID.get(), CONFIRM_L, refreshSuperList))
 
