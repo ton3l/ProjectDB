@@ -10,17 +10,20 @@ class HubScreen:
     def linkEditScreen(self, zkeeperId, refreshList):
         EditScreen(zkeeperId, refreshList)
 
-    def refreshList(self, ROOT):
+    def refreshList(self, ROOT, labels = [], buttons = []):
+        if(labels and buttons):
+            labels.clear()
+            buttons.clear()
+
         zkeeperBd = CuidadorBanco()
         zkeepers = zkeeperBd.selectAll()
-        nameLabels = [] 
-        editButtons = []
+        
 
         for n,zkeeper in enumerate(zkeepers): #Dispõe os cuidadores encontrados na tela acompanhados de um botão para cada
-            nameLabels.append(Label(ROOT, text=zkeeper[0]))
-            nameLabels[n].grid(row=n+1, column=0)
-            editButtons.append(Button(ROOT, text="ver cuidador", height=1, command=partial(self.linkEditScreen, zkeeper[1], lambda: self.refreshList(ROOT))))
-            editButtons[n].grid(row=n+1, column=2)
+            labels.append(Label(ROOT, text=zkeeper[0]))
+            labels[n].grid(row=n+1, column=0)
+            buttons.append(Button(ROOT, text="ver cuidador", height=1, command=partial(self.linkEditScreen, zkeeper[1], lambda: self.refreshList(ROOT))))
+            buttons[n].grid(row=n+1, column=2)
 
 
     def __init__(self):
@@ -29,7 +32,9 @@ class HubScreen:
 
         CREATE = Button(ROOT, text="Inserir Cuidador", height=1, command=lambda: self.linkCreateScreen(lambda: self.refreshList(ROOT)))
         SCROLL = Scrollbar(ROOT);
+        nameLabels = []
+        editButtons = []
         
         CREATE.grid(row=0, column=1)
 
-        self.refreshList(ROOT)
+        self.refreshList(ROOT, nameLabels, editButtons)
