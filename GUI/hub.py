@@ -12,13 +12,14 @@ class HubScreen:
 
     def refreshList(self, ROOT, labels = [], buttons = []):
         if(labels and buttons):
+            for i in range(len(labels)):
+                labels[i].destroy()
+                buttons[i].destroy()
             labels.clear()
             buttons.clear()
-
+            
         zkeeperBd = CuidadorBanco()
         zkeepers = zkeeperBd.selectAll()
-        
-
         for n,zkeeper in enumerate(zkeepers): #Dispõe os cuidadores encontrados na tela acompanhados de um botão para cada
             labels.append(Label(ROOT, text=zkeeper[0]))
             labels[n].grid(row=n+1, column=0)
@@ -27,11 +28,11 @@ class HubScreen:
 
 
     def __init__(self):
-        ROOT = Tk();
-        ROOT.geometry("212x212");
+        ROOT = Tk()
+        ROOT.geometry("212x212")
 
         CREATE = Button(ROOT, text="Inserir Cuidador", height=1, command=lambda: self.linkCreateScreen(lambda: self.refreshList(ROOT)))
-        SCROLL = Scrollbar(ROOT);
+        SCROLL = Scrollbar(ROOT)
         nameLabels = []
         editButtons = []
         

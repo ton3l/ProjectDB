@@ -10,15 +10,15 @@ class CreateScreen:
         refreshList()
 
     def __init__(self, refreshSuperList):
-        ROOT = Tk();
+        ROOT = Tk()
         ROOT.geometry("100x150")
         
         zkeeperBd = CuidadorBanco()
 
         NAME_L = Label(ROOT, text="Nome:")
-        NAME = Entry(ROOT);
+        NAME = Entry(ROOT)
         ID_L = Label(ROOT, text="Id:")
-        ID = Entry(ROOT);
+        ID = Entry(ROOT)
         CONFIRM = Button(ROOT, text="Confirmar")
         CONFIRM_L = Label(ROOT)
 

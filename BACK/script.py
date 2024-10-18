@@ -5,7 +5,7 @@ def authenticate(usnm, passw):
     us = (usnm, passw)
     result = usbd.authenticate(us)
     if(result):
-        return True;
-    return False;
+        return True
+    return False
 
 

@@ -3,9 +3,9 @@ import psycopg2
 class CuidadorBanco:
     def __init__(self):
         conection = {
-            'dbname': '20221214010016',
+            'dbname': 'postgres',
             'user': 'postgres',
-            'password': 'pabd',
+            'password': '1234',
             'port': 5432,
             'host': 'localhost'
         }
@@ -31,7 +31,6 @@ class CuidadorBanco:
     
     def update(self, values):
         command = f"UPDATE {self.table} SET nome = %s, id = %s WHERE id=%s"
-        print(values)
         self.it.execute(command, values)
         self.db_connection.commit()
         return True
