@@ -1,6 +1,6 @@
 import psycopg2
 
-class UsuarioBanco:
+class UserDb:
     def __init__(self):
         conection = {
             'dbname': 'postgres',

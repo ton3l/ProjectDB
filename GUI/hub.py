@@ -1,5 +1,5 @@
 from tkinter import *
-from BACK.CuidadorBanco import CuidadorBanco
+from BACK.KeeperDb import KeeperDb
 from .C import CreateScreen
 from .RUD import EditScreen
 from functools import partial
@@ -10,32 +10,39 @@ class HubScreen:
     def linkEditScreen(self, zkeeperId, refreshList):
         EditScreen(zkeeperId, refreshList)
 
-    def refreshList(self, ROOT, labels = [], buttons = []):
-        if(labels and buttons):
-            for i in range(len(labels)):
-                labels[i].destroy()
-                buttons[i].destroy()
-            labels.clear()
-            buttons.clear()
+    def refreshList(self):
+        if(self.nameLabels and self.editButtons):
+            for i in range(len(self.nameLabels)):
+                self.nameLabels[i].destroy()
+                self.editButtons[i].destroy()
+            self.nameLabels.clear()
+            self.editButtons.clear()
             
-        zkeeperBd = CuidadorBanco()
+        zkeeperBd = KeeperDb()
         zkeepers = zkeeperBd.selectAll()
+
         for n,zkeeper in enumerate(zkeepers): #Dispõe os cuidadores encontrados na tela acompanhados de um botão para cada
-            labels.append(Label(ROOT, text=zkeeper[0]))
-            labels[n].grid(row=n+1, column=0)
-            buttons.append(Button(ROOT, text="ver cuidador", height=1, command=partial(self.linkEditScreen, zkeeper[1], lambda: self.refreshList(ROOT))))
-            buttons[n].grid(row=n+1, column=2)
+            self.nameLabels.append(Label(self.CANVAS, text=zkeeper[0]))
+            self.nameLabels[n].grid(row=n+1, column=0)
+            self.editButtons.append(Button(self.CANVAS, text="ver cuidador", height=1, command=partial(self.linkEditScreen, zkeeper[1], lambda: self.refreshList())))
+            self.editButtons[n].grid(row=n+1, column=2)
 
 
     def __init__(self):
-        ROOT = Tk()
-        ROOT.geometry("212x212")
+        self.ROOT = Tk()
+        self.ROOT.geometry("300x300")
 
-        CREATE = Button(ROOT, text="Inserir Cuidador", height=1, command=lambda: self.linkCreateScreen(lambda: self.refreshList(ROOT)))
-        SCROLL = Scrollbar(ROOT)
-        nameLabels = []
-        editButtons = []
+        self.CANVAS = Canvas(self.ROOT)
+
+        self.CREATE = Button(self.CANVAS, text="Inserir Cuidador", height=1, command=lambda: self.linkCreateScreen(lambda: self.refreshList()))
+        self.SCROLL = Scrollbar(self.ROOT, orient=VERTICAL, command=self.CANVAS.yview)
+        self.nameLabels = []
+        self.editButtons = []
         
-        CREATE.grid(row=0, column=1)
+        self.CREATE.grid(row=0, column=1)
+        self.SCROLL.pack(side=RIGHT, fill=Y)
+        self.CANVAS.pack()
 
-        self.refreshList(ROOT, nameLabels, editButtons)
+        self.CANVAS.configure(yscrollcommand=self.SCROLL.set)
+
+        self.refreshList()

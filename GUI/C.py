@@ -1,33 +1,34 @@
 from tkinter import *
-from BACK.CuidadorBanco import CuidadorBanco
+from BACK.KeeperDb import KeeperDb
 
 class CreateScreen:
-    def insertCuidador(self, bdcnct, name, id, label, refreshList):
-        values = [name, id]#Recebendo valores e inserindo no banco de dados, através de uma instância de Cuidador Banco(bdcnct)
-        bdcnct.insertInto(values)
+    def insertCuidador(self):
+        values = [self.NAME.get(), self.ID.get()]#Recebendo valores e inserindo no banco de dados, através de uma instância de Cuidador Banco(self.zkeeperBd)
+        self.zkeeperBd.insertInto(values)
 
-        label.configure(text="Cuidador criado")
-        refreshList()
+        self.CONFIRM_L.configure(text="Cuidador criado")
+        self.refresh()
 
     def __init__(self, refreshSuperList):
-        ROOT = Tk()
-        ROOT.geometry("100x150")
+        self.ROOT = Tk()
+        self.ROOT.geometry("100x150")
         
-        zkeeperBd = CuidadorBanco()
+        self.refresh = refreshSuperList
+        self.zkeeperBd = KeeperDb()
 
-        NAME_L = Label(ROOT, text="Nome:")
-        NAME = Entry(ROOT)
-        ID_L = Label(ROOT, text="Id:")
-        ID = Entry(ROOT)
-        CONFIRM = Button(ROOT, text="Confirmar")
-        CONFIRM_L = Label(ROOT)
+        self.NAME_L = Label(self.ROOT, text="Nome:")
+        self.NAME = Entry(self.ROOT)
+        self.ID_L = Label(self.ROOT, text="Id:")
+        self.ID = Entry(self.ROOT)
+        self.CONFIRM = Button(self.ROOT, text="Confirmar")
+        self.CONFIRM_L = Label(self.ROOT)
 
-        NAME_L.pack()
-        NAME.pack()
-        ID_L.pack()
-        ID.pack()
-        CONFIRM.pack()
-        CONFIRM_L.pack()
+        self.NAME_L.pack()
+        self.NAME.pack()
+        self.ID_L.pack()
+        self.ID.pack()
+        self.CONFIRM.pack()
+        self.CONFIRM_L.pack()
 
-        CONFIRM.configure(command=lambda: self.insertCuidador(zkeeperBd, NAME.get(), ID.get(), CONFIRM_L, refreshSuperList))
+        self.CONFIRM.configure(command=lambda: self.insertCuidador())
 

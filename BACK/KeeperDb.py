@@ -1,6 +1,6 @@
 import psycopg2
 
-class CuidadorBanco:
+class KeeperDb:
     def __init__(self):
         conection = {
             'dbname': 'postgres',

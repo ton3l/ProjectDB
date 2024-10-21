@@ -1,42 +1,52 @@
 """
 Padronizar nomes de variáveis, classes e tabelas em inglês
-Uso de classe para inicialização da tela principal
 Configurar scrollbar na tela hub
 Fazer try catch para criar tabelas e gerenciar erros
-
+Guardar cada elemento pego do banco de dados numa classe para processar os dados
 """
 
 from tkinter import *
-from BACK import script
 from GUI.hub import HubScreen
+from BACK.UserDb import UserDb
 
 """ Tela principal da aplicação """
-ROOT = Tk()
-ROOT.geometry("100x150")
-ROOT.title("Gerenciamento Zoologico")
+class MainScreen:
+    def authenticateDb(self, usnm, passw):
+        usbd = UserDb()
+        us = (usnm, passw)
+        result = usbd.authenticate(us)
+        if(result):
+            return True
+        return False
 
-TITTLE = Label(ROOT, text="Zoo management")
-USER = Entry(ROOT)
-PASSWORD = Entry(ROOT)
-WRONG = Label(ROOT, text="")
-CONFIRM = Button(ROOT, text="log in")
+    def authenticate(self) -> None:
+            usnm = self.USER.get()
+            passw = self.PASSWORD.get()
 
-TITTLE.pack()
-USER.pack()
-PASSWORD.pack()
-WRONG.pack()
-CONFIRM.pack()
+            if(self.authenticateDb(usnm, passw)):
+                HubScreen()
+                self.WRONG.configure(text="")
+            else:
+                self.WRONG.configure(text="acesso negado")
 
-def authenticate():
-    usnm = USER.get()
-    passw = PASSWORD.get()
+    def __init__(self) -> None:
+        self.ROOT = Tk()
+        self.ROOT.geometry("100x150")
+        self.ROOT.title("Gerenciamento Zoologico")
 
-    if(script.authenticate(usnm, passw)):
-        HubScreen()
-        WRONG.configure(text="")
-    else:
-        WRONG.configure(text="acesso negado")
+        self.TITTLE = Label(self.ROOT, text="Zoo management")
+        self.USER = Entry(self.ROOT)
+        self.PASSWORD = Entry(self.ROOT)
+        self.WRONG = Label(self.ROOT, text="")
+        self.CONFIRM = Button(self.ROOT, text="log in")
 
-CONFIRM.configure(command=authenticate)
+        self.TITTLE.pack()
+        self.USER.pack()
+        self.PASSWORD.pack()
+        self.WRONG.pack()
+        self.CONFIRM.pack()
 
-ROOT.mainloop()
+        self.CONFIRM.configure(command=self.authenticate)
+        self.ROOT.mainloop()
+
+MainScreen();

@@ -1,4 +1,4 @@
-class Usuario:
+class User:
     def __init__(self, nome, username, idade, senha):
         self.nome = nome
         self.username = username
