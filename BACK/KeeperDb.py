@@ -1,14 +1,12 @@
 import psycopg2
+from dotenv import load_dotenv
+import os
 
 class KeeperDb:
     def __init__(self):
-        conection = {
-            'dbname': 'postgres',
-            'user': 'postgres',
-            'password': '1234',
-            'port': 5432,
-            'host': 'localhost'
-        }
+        load_dotenv()
+        DbPath = os.getenv("DB_Key")
+        conection = eval(DbPath)
         self.db_connection = psycopg2.connect(**conection)
         self.it = self.db_connection.cursor()
         self.table = 'cuidador'
@@ -34,4 +32,9 @@ class KeeperDb:
         self.it.execute(command, values)
         self.db_connection.commit()
         return True
+    
+    def createTable(self):
+        command = f'CREATE TABLE {self.table}(name varchar(25), id varchar(6), CONSTRAINT pk_{self.table} PRIMARY KEY (id));'
+        self.it.execute(command)
+        self.db_connection.commit()
     

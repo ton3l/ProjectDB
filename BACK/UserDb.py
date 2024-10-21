@@ -1,14 +1,12 @@
 import psycopg2
+from dotenv import load_dotenv
+import os
 
 class UserDb:
     def __init__(self):
-        conection = {
-            'dbname': 'postgres',
-            'user': 'postgres',
-            'password': '1234',
-            'port': 5432,
-            'host': 'localhost'
-        }
+        load_dotenv()
+        DbPath = os.getenv("DB_Key")
+        conection = eval(DbPath)
         self.db_connection = psycopg2.connect(**conection)
         self.it = self.db_connection.cursor()
         self.table = "usuario"
@@ -36,3 +34,14 @@ class UserDb:
             if(user == us):
                 return True
         return False
+    
+    def createTable(self):
+        command = f'CREATE TABLE {self.table}(username varchar(15), senha varchar(15), CONSTRAINT pk_{self.table} PRIMARY KEY (username));'
+        self.it.execute(command)
+        self.db_connection.commit()
+
+    def insertInto(self, values):
+        command = f'INSERT INTO {self.table} VALUES (%s, %s)'
+        self.it.execute(command, values)
+        self.db_connection.commit()
+        return True

@@ -1,2 +1,3 @@
 tk
 psycopg2
+python-dotenv

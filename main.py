@@ -8,6 +8,8 @@ Guardar cada elemento pego do banco de dados numa classe para processar os dados
 from tkinter import *
 from GUI.hub import HubScreen
 from BACK.UserDb import UserDb
+from tkinter import messagebox
+from BACK.seed import implantDb
 
 """ Tela principal da aplicação """
 class MainScreen:
@@ -22,12 +24,16 @@ class MainScreen:
     def authenticate(self) -> None:
             usnm = self.USER.get()
             passw = self.PASSWORD.get()
-
-            if(self.authenticateDb(usnm, passw)):
-                HubScreen()
-                self.WRONG.configure(text="")
-            else:
-                self.WRONG.configure(text="acesso negado")
+            try:    
+                if(self.authenticateDb(usnm, passw)):
+                    HubScreen()
+                    self.WRONG.configure(text="")
+                else:
+                    self.WRONG.configure(text="acesso negado")
+            except:
+                messagebox.showwarning('Aviso', f'Antes de tudo configure o usuário do banco de dados no arquivo .env, se já houver configurado aperte o botão e inicie novamente.')
+                implantDb()
+                self.ROOT.destroy()
 
     def __init__(self) -> None:
         self.ROOT = Tk()
@@ -39,6 +45,8 @@ class MainScreen:
         self.PASSWORD = Entry(self.ROOT)
         self.WRONG = Label(self.ROOT, text="")
         self.CONFIRM = Button(self.ROOT, text="log in")
+        
+        self.errors = ['psycopg2.errors.UndefinedTable: ERRO:  rela��o "usuario" n�o existe']
 
         self.TITTLE.pack()
         self.USER.pack()
