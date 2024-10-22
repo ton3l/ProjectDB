@@ -27,7 +27,6 @@ class HubScreen:
             self.editButtons.append(Button(self.CANVAS, text="ver cuidador", height=1, command=partial(self.linkEditScreen, zkeeper[1], lambda: self.refreshList())))
             self.editButtons[n].grid(row=n+1, column=2)
 
-
     def __init__(self):
         self.ROOT = Tk()
         self.ROOT.geometry("300x300")
