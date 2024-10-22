@@ -1,8 +1,6 @@
 """
 Padronizar nomes de variáveis, classes e tabelas em inglês
 Configurar scrollbar na tela hub
-Fazer try catch para criar tabelas e gerenciar erros
-Guardar cada elemento pego do banco de dados numa classe para processar os dados
 """
 
 from tkinter import *
