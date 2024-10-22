@@ -1,11 +1,12 @@
 from tkinter import *
 from BACK.KeeperDb import KeeperDb
+from BACK.EnclosureDb import EnclosureDb
 
 class CreateScreen:
     def insertCuidador(self):
         values = [self.NAME.get(), self.ID.get()]#Recebendo valores e inserindo no banco de dados, através de uma instância de Cuidador Banco(self.zkeeperBd)
         self.zkeeperBd.insertInto(values)
-
+        self.EnclosureDb.insertInto(["", "", 0, values[1]])
         self.CONFIRM_L.configure(text="Cuidador criado")
         self.refresh()
 
@@ -15,6 +16,7 @@ class CreateScreen:
         
         self.refresh = refreshSuperList
         self.zkeeperBd = KeeperDb()
+        self.EnclosureDb = EnclosureDb()
 
         self.NAME_L = Label(self.ROOT, text="Nome:")
         self.NAME = Entry(self.ROOT)

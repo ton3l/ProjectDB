@@ -46,8 +46,6 @@ class MainScreen:
         self.WRONG = Label(self.ROOT, text="")
         self.CONFIRM = Button(self.ROOT, text="log in")
         
-        self.errors = ['psycopg2.errors.UndefinedTable: ERRO:  rela��o "usuario" n�o existe']
-
         self.TITTLE.pack()
         self.USER.pack()
         self.PASSWORD.pack()

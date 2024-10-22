@@ -9,7 +9,7 @@ class EditScreen:
         newQuant = self.QUANT_E.get()
         nValues = [newSpcs, newBiome, newQuant]
         if(nValues!=self.ENV):
-            nValues.append(self.ENV[4])
+            nValues.append(self.ENV[4])#Adiciono o id antigo a lista de novos valores para facilitar o processo de atualização;
             self.ENV_BD.update(nValues)
 
     def updateTableKeeper(self):
@@ -45,7 +45,6 @@ class EditScreen:
         self.QUANT_L = Label(self.ROOT, text="Quantidade:")
         self.QUANT_E = Entry(self.ROOT)
         self.CONFIRM = Button(self.ROOT, text="Confirmar")
-
 
         self.NAME_L.pack()
         self.NAME_E.pack()

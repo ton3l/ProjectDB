@@ -26,3 +26,14 @@ class EnclosureDb:
         self.it.execute(command, values)
         self.db_connection.commit()
         return True
+    
+    def createTable(self):
+        command = f'CREATE TABLE {self.table}(id serial, especie varchar(15), bioma varchar(15), quantidade smallint, cuidador varchar(6), CONSTRAINT pk_{self.table} PRIMARY KEY (id), CONSTRAINT fk_cuidador FOREIGN KEY (cuidador) REFERENCES cuidador(id));'
+        self.it.execute(command)
+        self.db_connection.commit()
+
+    def insertInto(self, values):
+        command = f'INSERT INTO {self.table}(especie, bioma, quantidade, cuidador) VALUES (%s, %s, %s, %s)'
+        self.it.execute(command, values)
+        self.db_connection.commit()
+        return True

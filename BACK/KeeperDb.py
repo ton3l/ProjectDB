@@ -28,7 +28,7 @@ class KeeperDb:
         return self.it.fetchone()
     
     def update(self, values):
-        command = f"UPDATE {self.table} SET nome = %s, id = %s WHERE id=%s"
+        command = f"UPDATE {self.table} SET name = %s, id = %s WHERE id=%s"
         self.it.execute(command, values)
         self.db_connection.commit()
         return True
