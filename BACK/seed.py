@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import os
 
 def implantDb():
-    messagebox.showinfo('Aviso', 'O programa irá configurar tabelas de banco de dados com valores padrão')
+    messagebox.showinfo('Aviso!', 'O programa irá configurar tabelas de banco de dados com valores padrão.')
     UserDb().createTable()
     dfUser = eval(os.getenv('DF_USER'))
     UserDb().insertInto(dfUser)

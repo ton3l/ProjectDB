@@ -1,11 +1,13 @@
 from tkinter import *
 from BACK.KeeperDb import KeeperDb
 from BACK.EnclosureDb import EnclosureDb
+from BACK.Keeper import Keeper
+from BACK.Enclosure import Enclosure
 
 class EditScreen:
     def deleteRow(self):
-        self.ENV_BD.deleteRow([self.ZKEEPER[1]])
-        self.ZKEEPER_BD.deleteRow([self.ZKEEPER[1]])
+        self.ENC_BD.deleteRow([self.ZKEEPER.getId()])
+        self.ZKEEPER_BD.deleteRow([self.ZKEEPER.getId()])
         self.refreshList()
         self.ROOT.destroy()
 
@@ -14,16 +16,16 @@ class EditScreen:
         newBiome = self.BIOME_E.get()
         newQuant = self.QUANT_E.get()
         nValues = [newSpcs, newBiome, newQuant]
-        if(nValues!=self.ENV):
-            nValues.append(self.ENV[4])#Adiciono o id antigo a lista de novos valores para facilitar o processo de atualização;
-            self.ENV_BD.update(nValues)
+        if(nValues!=self.ENC):
+            nValues.append(self.ENC.getKeeperId())#Adiciono o id antigo a lista de novos valores para facilitar o processo de atualização;
+            self.ENC_BD.update(nValues)
 
     def updateTableKeeper(self):
         newNm = self.NAME_E.get()
         newId = self.ID_E.get()
         nValues = [newNm, newId]
         if(nValues!=self.ZKEEPER):
-            nValues.append(self.ZKEEPER[1])#Adiciono o id antigo a lista de novos valores para facilitar o processo de atualização;
+            nValues.append(self.ZKEEPER.getId())#Adiciono o id antigo a lista de novos valores para facilitar o processo de atualização;
             self.ZKEEPER_BD.update(nValues)
             self.refreshList()
             self.updateTableEnv()
@@ -35,9 +37,9 @@ class EditScreen:
 
         self.refreshList = refreshList
         self.ZKEEPER_BD = KeeperDb()
-        self.ENV_BD = EnclosureDb()
-        self.ZKEEPER = self.ZKEEPER_BD.getUser(zkeeperSuper)
-        self.ENV = self.ENV_BD.getEnvironment(self.ZKEEPER[1])
+        self.ENC_BD = EnclosureDb()
+        self.ZKEEPER = Keeper(self.ZKEEPER_BD.getUser(zkeeperSuper))
+        self.ENC = Enclosure(self.ENC_BD.getEnvironment(self.ZKEEPER.getId()))
 
         self.NAME_L = Label(self.ROOT, text="Nome:")
         self.NAME_E = Entry(self.ROOT)
@@ -67,11 +69,11 @@ class EditScreen:
         self.CONFIRM.pack()
         self.DELETE.pack()
 
-        self.NAME_E.insert(END, self.ZKEEPER[0])
-        self.ID_E.insert(END, self.ZKEEPER[1])
-        self.SPECIES_E.insert(END, self.ENV[1])
-        self.BIOME_E.insert(END, self.ENV[2])
-        self.QUANT_E.insert(END, self.ENV[3])
+        self.NAME_E.insert(END, self.ZKEEPER.getName())
+        self.ID_E.insert(END, self.ZKEEPER.getId())
+        self.SPECIES_E.insert(END, self.ENC.getSpecies())
+        self.BIOME_E.insert(END, self.ENC.getBiome())
+        self.QUANT_E.insert(END, self.ENC.getQuant())
 
         self.CONFIRM.configure(command=self.updateTableKeeper)
         self.DELETE.configure(command=self.deleteRow)

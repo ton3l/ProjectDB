@@ -1,7 +1,7 @@
 import psycopg2
 from dotenv import load_dotenv
 import os
-
+""" Conecção com a tabela de Usuario no banco de dados """
 class UserDb:
     def __init__(self):
         load_dotenv()

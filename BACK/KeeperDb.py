@@ -1,7 +1,7 @@
 import psycopg2
 from dotenv import load_dotenv
 import os
-
+""" Conecção com a tabela de Cuidador no banco de dados """
 class KeeperDb:
     def __init__(self) -> None:
         load_dotenv()
