@@ -37,3 +37,9 @@ class EnclosureDb:
         self.it.execute(command, values)
         self.db_connection.commit()
         return True
+    
+    def deleteRow(self, values) -> bool:
+        command = f"DELETE FROM {self.table} WHERE cuidador = %s"
+        self.it.execute(command, values)
+        self.db_connection.commit()
+        return True

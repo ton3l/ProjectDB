@@ -3,6 +3,12 @@ from BACK.KeeperDb import KeeperDb
 from BACK.EnclosureDb import EnclosureDb
 
 class EditScreen:
+    def deleteRow(self):
+        self.ENV_BD.deleteRow([self.ZKEEPER[1]])
+        self.ZKEEPER_BD.deleteRow([self.ZKEEPER[1]])
+        self.refreshList()
+        self.ROOT.destroy()
+
     def updateTableEnv(self):
         newSpcs = self.SPECIES_E.get()
         newBiome = self.BIOME_E.get()
@@ -45,6 +51,7 @@ class EditScreen:
         self.QUANT_L = Label(self.ROOT, text="Quantidade:")
         self.QUANT_E = Entry(self.ROOT)
         self.CONFIRM = Button(self.ROOT, text="Confirmar")
+        self.DELETE = Button(self.ROOT, text="Deletar cuidador")
 
         self.NAME_L.pack()
         self.NAME_E.pack()
@@ -58,7 +65,7 @@ class EditScreen:
         self.QUANT_L.pack()
         self.QUANT_E.pack()
         self.CONFIRM.pack()
-        
+        self.DELETE.pack()
 
         self.NAME_E.insert(END, self.ZKEEPER[0])
         self.ID_E.insert(END, self.ZKEEPER[1])
@@ -66,6 +73,7 @@ class EditScreen:
         self.BIOME_E.insert(END, self.ENV[2])
         self.QUANT_E.insert(END, self.ENV[3])
 
-        self.CONFIRM.configure(command=lambda: self.updateTableKeeper())
+        self.CONFIRM.configure(command=self.updateTableKeeper)
+        self.DELETE.configure(command=self.deleteRow)
 
         #Algoritmo para conferir se os dados foram alterados: armazenar entradas em uma lista, fazer um for comparando com a lista retornada do postgre
